@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "1.9.0"
     application
+    id("com.github.johnrengelman.shadow") version "8.1.0" // Добавьте этот плагин
 }
 
 group = "org.novelladouble"
@@ -49,4 +50,12 @@ tasks.withType<Jar> {
     manifest {
         attributes["Main-Class"] = application.mainClass.get()
     }
+}
+tasks.register<Jar>("fatJar") {
+    archiveClassifier.set("all")
+    manifest {
+        attributes["Main-Class"] = "MainKt"
+    }
+    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+    with(tasks.jar.get() as CopySpec)
 }
