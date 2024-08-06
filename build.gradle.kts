@@ -44,3 +44,9 @@ kotlin {
 application {
     mainClass.set("MainKt")
 }
+
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = application.mainClass.get()
+    }
+}
