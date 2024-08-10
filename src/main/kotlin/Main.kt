@@ -29,25 +29,25 @@ class MyBot {
         return bot {
             token = "7289060186:AAEC372I81ofvBPoBPfv99dCWSow_v5vVmE"
             logLevel = LogLevel.Network.Body
-            var username = "123"
+
             dispatch {
                 text {
                     val text = update.message?.text
 
                     if (text != null) {
                         val chatId = ChatId.fromId(update.message!!.chat.id)
-                        username = message.from?.username ?: "Unknown"
+
+                        // Переместите вызов addDocumentToCollection сюда
                         GlobalScope.launch {
                             handleTextAndUpdateState(chatId, text, bot)
+
+                            // Убедитесь, что вызов происходит после обработки текста
+                            addDocumentToCollection(ChatId.toString(), message.from?.username ?: "Unknown")
                         }
-
-
                     }
-
                 }
                 initializeFirebase()
 
-                addDocumentToCollection(ChatId.toString(), username)
                 preCheckoutQuery {
                     val preCheckoutQuery = this.preCheckoutQuery
                     runBlocking {
@@ -61,7 +61,7 @@ class MyBot {
 
                 // Обработка успешных платежей
                 message {
-                    val successfulPayment = this.message?.successfulPayment
+                    val successfulPayment = this.message.successfulPayment
                     if (successfulPayment != null) {
                         runBlocking {
                             handleSuccessfulPayment( bot, message, ChatId.fromId(update.message!!.chat.id))

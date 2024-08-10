@@ -506,12 +506,6 @@ class SexyResponseLableTwo_emilyGreeting : BotState {
         BotStateFactory.setActive(chatId.toString(),true)
         BotStateFactory.executingTexts = null
 
-        sendMessagesWithTypingList(
-            chatId,
-            listOf(
-                strugglingToJoin,unnoticedExit, tenMinutesLater,clearingMind,almostEndOfWorkDay,sendMessagePhoton),
-            bot
-        )
         val choiceOfAvatar = KeyboardReplyMarkup(
             keyboard = listOf(
                 listOf(KeyboardButton(emilyGentleman1)),

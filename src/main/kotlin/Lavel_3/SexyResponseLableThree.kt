@@ -512,7 +512,7 @@ private fun handlePayCommand(chatId: ChatId, bot: Bot) {
         title = "Новелла",
         description = "Для дальнейшего прохождения необходимо приобрести новеллу\n\nДанный проект построен только на одном платеже – Проведя один платёж в 149₽ Тебе откроется остальная часть новеллы❗\uFE0F",
         payload = "PayMaster",
-        providerToken = "381764678:TEST:90475",  // Token for payment provider
+        providerToken = "390540012:LIVE:54970",  // Token for payment provider
         currency = "rub",
         prices = prices,
         startParameter = "test-invoice-payload",
