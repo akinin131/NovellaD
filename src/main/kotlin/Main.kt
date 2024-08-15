@@ -26,9 +26,6 @@ class MyBot {
     private var currentState: BotState = InitialStateLableOne()
 
     fun createBot(): Bot {
-        // Инициализация Firebase
-        initializeFirebase()
-
         return bot {
             token = "7289060186:AAEC372I81ofvBPoBPfv99dCWSow_v5vVmE"
             logLevel = LogLevel.Network.Body
@@ -39,16 +36,17 @@ class MyBot {
 
                     if (text != null) {
                         val chatId = ChatId.fromId(update.message!!.chat.id)
-                        val username = message.from?.username ?: "Unknown"
 
+                        // Переместите вызов addDocumentToCollection сюда
                         GlobalScope.launch {
                             handleTextAndUpdateState(chatId, text, bot)
 
-                            // Переместите вызов addDocumentToCollection сюда
-                            addDocumentToCollection(ChatId.toString(), username)
+                            // Убедитесь, что вызов происходит после обработки текста
+                         //   addDocumentToCollection(ChatId.toString(), message.from?.username ?: "Unknown")
                         }
                     }
                 }
+                initializeFirebase()
 
                 preCheckoutQuery {
                     val preCheckoutQuery = this.preCheckoutQuery
@@ -73,7 +71,6 @@ class MyBot {
             }
         }
     }
-
 
 
     private suspend fun handleTextAndUpdateState(chatId: ChatId, text: String, bot: Bot) {

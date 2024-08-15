@@ -91,7 +91,9 @@ import updateSubscriptionStatus
 import utils.sendMessageWithTyping
 import utils.sendMessagesWithTypingList
 import utils.sendPhotoWithTyping
+import java.math.BigDecimal
 import java.math.BigInteger
+import java.util.*
 
 class InitialStateLableThree : BotState {
 
@@ -505,20 +507,38 @@ private fun handlePayCommand(chatId: ChatId, bot: Bot) {
     val prices = listOf(
         LabeledPrice(
             label = "Новелла \"Под двойной маской\"",
-            amount = BigInteger.valueOf(14900)
+            amount = BigDecimal.valueOf(14900).toBigInteger()
         )
     )
+    val invoiceUserDetail = InvoiceUserDetail(
+        needEmail = true, // Запрос электронной почты у пользователя
+        sendEmailToProvider = true // Отправка email провайдеру для формирования чека
+    )
+    val providerData = """
+        {
+            "receipt": {
+                "items": [
+                    {
+                        "description": "Новелла \"Под двойной маской\"",
+                        "quantity": "1",
+                        "amount": {"value": "149.00", "currency": "RUB"},
+                        "vat_code": 1
+                    }
+                ]
+            }
+        }
+    """.trimIndent()
     val invoiceInfo = PaymentInvoiceInfo(
         title = "Новелла",
         description = "Для дальнейшего прохождения необходимо приобрести новеллу\n\nДанный проект построен только на одном платеже – Проведя один платёж в 149₽ Тебе откроется остальная часть новеллы❗\uFE0F",
-        payload = "PayMaster",
+        payload = "order-${UUID.randomUUID()}",
         providerToken = "390540012:LIVE:54970",  // Token for payment provider
         currency = "rub",
         prices = prices,
-        startParameter = "test-invoice-payload",
+        startParameter = "order-${UUID.randomUUID()}",
         isFlexible = false,
-        providerData = null,
-        invoiceUserDetail = null,
+        providerData = providerData,
+        invoiceUserDetail = invoiceUserDetail,
         invoicePhoto = InvoicePhotoDetail(
             photoUrl = "https://photos.xgroovy.com/contents/albums/sources/697000/697879/775654.jpg", // URL of your photo
             photoWidth = 450,
