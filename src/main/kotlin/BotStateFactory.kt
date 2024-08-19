@@ -131,7 +131,7 @@ object BotStateFactory {
             text.contains(Regex(Strings.emilyHonesty2)) -> SexyResponseLableTwo_emilyHonesty1_or_emilyHonesty2()
             text.contains(Regex(Regex.escape(emilyCuriosity))) -> SexyResponseLableTwo_emilyCuriosity()
             text.contains(Regex(Strings.Lavel_4_Start)) -> InitialStateLableFoor()
-            text.contains(Regex(Regex.escape(emilyWhyThere))) -> InitialStateLableFoor()
+            text.contains(Regex(Regex.escape(emilyWhyThere))) -> InitialStateLableFooremilyExpensive()
             text.contains(Regex(Strings.emilyExpensive)) -> InitialStateLableFooremilyExpensive()
             text.contains(Regex(Strings.emilyJokes)) -> InitialStateLableFooreemilyCompliments()
             text.contains(Regex(Strings.emilyCompliments)) -> InitialStateLableFooreemilyCompliments()
