@@ -59,14 +59,16 @@ import com.example.Strings.yobyrTaunt4
 import com.example.Strings.yobyrTaunt5
 import com.github.kotlintelegrambot.Bot
 import com.github.kotlintelegrambot.entities.ChatId
+import com.github.kotlintelegrambot.entities.ChatMember
 import com.github.kotlintelegrambot.entities.KeyboardReplyMarkup
 import com.github.kotlintelegrambot.entities.keyboard.KeyboardButton
+import com.github.kotlintelegrambot.types.TelegramBotResult
 import utils.sendMessageWithTyping
 import utils.sendMessageWithTyping10
 import utils.sendMessagesWithTypingList
 
 class Lavel8Start : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot) {
+    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -128,7 +130,7 @@ class Lavel8Start : BotState {
 }
 
 class emilyReply1Start : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot) {
+    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -167,7 +169,7 @@ class emilyReply1Start : BotState {
 
 
 class emilyShameStart : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot) {
+    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -211,7 +213,7 @@ class emilyShameStart : BotState {
 }
 
 class emilyRetort2Start : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot) {
+    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -249,7 +251,7 @@ class emilyRetort2Start : BotState {
 }
 
 class emilyAngerStart : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot) {
+    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }

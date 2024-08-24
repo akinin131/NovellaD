@@ -79,6 +79,7 @@ import com.example.Strings.unforgettableEpisode
 import com.example.Strings.universityEnd
 import com.github.kotlintelegrambot.Bot
 import com.github.kotlintelegrambot.entities.ChatId
+import com.github.kotlintelegrambot.entities.ChatMember
 import com.github.kotlintelegrambot.entities.KeyboardReplyMarkup
 import com.github.kotlintelegrambot.entities.Message
 import com.github.kotlintelegrambot.entities.keyboard.KeyboardButton
@@ -86,18 +87,18 @@ import com.github.kotlintelegrambot.entities.payments.InvoicePhotoDetail
 
 import com.github.kotlintelegrambot.entities.payments.PaymentInvoiceInfo
 import com.github.kotlintelegrambot.entities.payments.*
+import com.github.kotlintelegrambot.types.TelegramBotResult
 import isUserSubscribed
 import updateSubscriptionStatus
 import utils.sendMessageWithTyping
 import utils.sendMessagesWithTypingList
 import utils.sendPhotoWithTyping
 import java.math.BigDecimal
-import java.math.BigInteger
 import java.util.*
 
 class InitialStateLableThree : BotState {
 
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot) {
+    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -157,7 +158,7 @@ class InitialStateLableThree : BotState {
 }
 
 class SexyResponseLableTwo_readMassege : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot) {
+    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -196,7 +197,7 @@ class SexyResponseLableTwo_readMassege : BotState {
 }
 
 class SexyResponseLableTwo_emilyTurnedOn : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot) {
+    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -235,7 +236,7 @@ class SexyResponseLableTwo_emilyTurnedOn : BotState {
 }
 
 class SexyResponseLableTwo_emilyTruth : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot) {
+    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -270,7 +271,7 @@ class SexyResponseLableTwo_emilyTruth : BotState {
 }
 
 class SexyResponseLableTwo_startEmilyStory : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot) {
+    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -316,7 +317,7 @@ class SexyResponseLableTwo_startEmilyStory : BotState {
 }
 
 class SexyResponseLableTwo_continiueStory : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot) {
+    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -365,7 +366,7 @@ class SexyResponseLableTwo_continiueStory : BotState {
 }
 
 class SexyResponseLableTwo_continiueStory2 : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot) {
+    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -419,7 +420,7 @@ class SexyResponseLableTwo_continiueStory2 : BotState {
 }
 
 class SexyResponseLableTwo_emilyHonesty1_or_emilyHonesty2 : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot) {
+    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -454,7 +455,7 @@ class SexyResponseLableTwo_emilyHonesty1_or_emilyHonesty2 : BotState {
 }
 
 class SexyResponseLableTwo_emilyCuriosity : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot) {
+    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }

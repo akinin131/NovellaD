@@ -101,6 +101,7 @@ object BotStateFactory {
             text.contains(Regex("Ты очень точно описал моё состояние")) -> SexyResponseState_seven()
             // Вторая глава
             text.contains(Regex(sexyResponseStoryFour16)) -> SexyResponseLableTwo_One()
+            text.contains(Regex("✅ Подписка подтверждена! Спасибо!")) -> SexyResponseLableTwo_One()
             text.contains(Regex(emilyResponse1)) -> SexyResponseLableTwo_photonFollowUp1()
             text.contains(Regex(emilyResponse2)) -> SexyResponseLableTwo_photonFollowUp2()
             text.contains(Regex(Strings.emilyAgree)) -> SexyResponseLableTwo_photonQuestion()

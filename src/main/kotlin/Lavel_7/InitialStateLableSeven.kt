@@ -44,14 +44,16 @@ import com.example.Strings.emilyWorkDifficulties
 import com.example.Strings.morningMessage
 import com.github.kotlintelegrambot.Bot
 import com.github.kotlintelegrambot.entities.ChatId
+import com.github.kotlintelegrambot.entities.ChatMember
 import com.github.kotlintelegrambot.entities.KeyboardReplyMarkup
 import com.github.kotlintelegrambot.entities.keyboard.KeyboardButton
+import com.github.kotlintelegrambot.types.TelegramBotResult
 import utils.sendMessageWithTyping
 import utils.sendMessagesWithTypingList
 import utils.sendPhotoWithTyping
 
 class InitialStateLableSeven : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot) {
+    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -91,7 +93,7 @@ class InitialStateLableSeven : BotState {
 }
 
 class InitialStateLableSevenemilyClientOfficeStr : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot) {
+    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -149,7 +151,7 @@ class InitialStateLableSevenemilyClientOfficeStr : BotState {
 }
 
 class InitialStateLableSevenemilyNoSleep1 : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot) {
+    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -189,7 +191,7 @@ class InitialStateLableSevenemilyNoSleep1 : BotState {
 }
 
 class InitialStateLableSevendanConfidence1 : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot) {
+    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -232,7 +234,7 @@ class InitialStateLableSevendanConfidence1 : BotState {
 
 
 class InitialStateLableSevenemilyConcern2 : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot) {
+    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -270,7 +272,7 @@ class InitialStateLableSevenemilyConcern2 : BotState {
 }
 
 class InitialStateLableSevenemilyShock2 : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot) {
+    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }

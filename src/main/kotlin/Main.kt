@@ -2,18 +2,16 @@
 
 import Lavel_1.InitialStateLableOne
 import Lavel_3.handleSuccessfulPayment
-import com.example.Strings
 import com.github.kotlintelegrambot.Bot
 import com.github.kotlintelegrambot.bot
-import com.github.kotlintelegrambot.logging.LogLevel
 import com.github.kotlintelegrambot.dispatch
-import com.github.kotlintelegrambot.dispatcher.handlers.HandleUpdate
-import com.github.kotlintelegrambot.dispatcher.message
-import com.github.kotlintelegrambot.dispatcher.preCheckoutQuery
-import com.github.kotlintelegrambot.dispatcher.text
+import com.github.kotlintelegrambot.dispatcher.*
+import com.github.kotlintelegrambot.entities.ChatId
+import com.github.kotlintelegrambot.entities.ChatMember
+import com.github.kotlintelegrambot.logging.LogLevel
+import com.github.kotlintelegrambot.types.TelegramBotResult
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import com.github.kotlintelegrambot.entities.ChatId
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.supervisorScope
 
@@ -36,13 +34,41 @@ class MyBot {
 
                     if (text != null) {
                         val chatId = ChatId.fromId(update.message!!.chat.id)
+                        val userId = update.message!!.from?.id
+                        val chatIdQroup = ChatId.fromId(-1002229947613)
 
+                        val result = bot.getChatMember(chatIdQroup, userId!!.toLong())
+
+                        println("result111 = $result")
                         // Переместите вызов addDocumentToCollection сюда
                         GlobalScope.launch {
-                            handleTextAndUpdateState(chatId, text, bot)
+                            handleTextAndUpdateState(chatId, text, bot, result)
+                        }
+                    }
 
-                            // Убедитесь, что вызов происходит после обработки текста
-                         //   addDocumentToCollection(ChatId.toString(), message.from?.username ?: "Unknown")
+                    callbackQuery("check_subscription") {
+                        val chatId = callbackQuery.message?.chat?.id
+                        val userId = callbackQuery.from.id
+
+                        if (chatId != null) {
+                            val chatIdGroup = ChatId.fromId(-1002229947613L)
+
+                            val result = bot.getChatMember(chatIdGroup, userId.toLong())
+
+                            result.fold(
+                                {
+                                    val chatMember = it
+                                    if (chatMember.status == "member" || chatMember.status == "administrator" || chatMember.status == "creator") {
+                                        bot.sendMessage(ChatId.fromId(chatId), "✅ Подписка подтверждена! Спасибо!")
+                                        bot.deleteMessage(ChatId.fromId(chatId), callbackQuery.message?.messageId!!)
+                                    } else {
+                                        bot.sendMessage(ChatId.fromId(chatId), "❌ Вы не подписаны на группу. Пожалуйста, подпишитесь и попробуйте снова.")
+                                    }
+                                },
+                                {
+                                    bot.sendMessage(ChatId.fromId(chatId), "Произошла ошибка при проверке подписки.")
+                                }
+                            )
                         }
                     }
                 }
@@ -73,14 +99,19 @@ class MyBot {
     }
 
 
-    private suspend fun handleTextAndUpdateState(chatId: ChatId, text: String, bot: Bot) {
+    private suspend fun handleTextAndUpdateState(
+        chatId: ChatId,
+        text: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         supervisorScope {
                 val newState = BotStateFactory.getState(text)
                 if (newState != null) {
                     currentState = newState
                 }
             println(newState)
-            currentState.handleText(chatId, text, bot)
+            currentState.handleText(chatId, text, bot, result)
         }
     }
 }

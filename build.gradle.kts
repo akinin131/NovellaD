@@ -22,11 +22,10 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
 
     implementation("org.telegram:telegrambotsextensions:6.8.0")
-
     // Для поддержки Kotlin DSL в Telegram Bot также потребуется:
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     // Other dependencies...
-
+    implementation("org.telegram:telegrambots-spring-boot-starter:6.5.0")
     implementation("com.google.firebase:firebase-admin:9.1.1")
 
 

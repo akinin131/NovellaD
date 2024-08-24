@@ -3,7 +3,9 @@ package utils
 import com.github.kotlintelegrambot.Bot
 import com.github.kotlintelegrambot.entities.ChatAction
 import com.github.kotlintelegrambot.entities.ChatId
+import com.github.kotlintelegrambot.entities.InlineKeyboardMarkup
 import com.github.kotlintelegrambot.network.fold
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 
 suspend fun sendPhotoWithTyping(
     chatId: ChatId,
