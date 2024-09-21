@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.supervisorScope
 import kotlinx.coroutines.*
+import java.util.concurrent.ConcurrentHashMap
 
 fun main() {
     val myBot = MyBot()
@@ -22,7 +23,7 @@ fun main() {
 
 class MyBot {
     private var currentState: BotState = InitialStateLableOne()
-    private val processedCallbackQueryIds = mutableSetOf<String>()
+    private val processedCallbackQueryIds = ConcurrentHashMap<String, Boolean>()
     private val botScope = CoroutineScope(Dispatchers.Default)
 
     fun createBot(): Bot {
@@ -36,39 +37,38 @@ class MyBot {
                     if (text != null) {
                         val chatId = ChatId.fromId(update.message!!.chat.id)
                         val userId = update.message!!.from?.id
-                        val chatIdQroup = ChatId.fromId(-1002229947613)
+                        val chatIdGroup = ChatId.fromId(-1002229947613L)
 
-                        val result = bot.getChatMember(chatIdQroup, userId!!.toLong())
-                        println("result111 = $result")
-
-                        botScope.launch {
+                        botScope.launch(Dispatchers.IO) {
+                            val result = bot.getChatMember(chatIdGroup, userId!!.toLong())
                             handleTextAndUpdateState(chatId, text, bot, result)
                         }
                     }
+                }
 
-                    callbackQuery("check_subscription") {
-                        val callbackId = callbackQuery.id
-                        val chatId = callbackQuery.message?.chat?.id
-                        val userId = callbackQuery.from.id
+                callbackQuery("check_subscription") {
+                    val callbackId = callbackQuery.id
+                    val chatId = callbackQuery.message?.chat?.id
+                    val userId = callbackQuery.from.id
 
-                        if (chatId != null && !processedCallbackQueryIds.contains(callbackId)) {
-                            processedCallbackQueryIds.add(callbackId)
-                            println("Processing callback query with ID: $callbackId")
-
-                            val chatIdGroup = ChatId.fromId(-1002229947613L)
+                    if (chatId != null && processedCallbackQueryIds.putIfAbsent(callbackId, true) == null) {
+                        val chatIdGroup = ChatId.fromId(-1002229947613L)
+                        botScope.launch(Dispatchers.IO) {
                             val result = bot.getChatMember(chatIdGroup, userId.toLong())
-
                             result.fold(
                                 {
                                     val chatMember = it
                                     if (chatMember.status in listOf("member", "administrator", "creator")) {
                                         bot.sendMessage(ChatId.fromId(chatId), "✅ Подписка подтверждена! Спасибо!")
                                         bot.deleteMessage(ChatId.fromId(chatId), callbackQuery.message?.messageId!!)
-                                        botScope.launch {
-                                            handleTextAndUpdateState(ChatId.fromId(chatId), "✅ Подписка подтверждена! Спасибо!", bot, result)
-                                        }
+                                        handleTextAndUpdateState(
+                                            ChatId.fromId(chatId),
+                                            "✅ Подписка подтверждена! Спасибо!",
+                                            bot,
+                                            result
+                                        )
                                     } else {
-                                        bot.sendMessage(ChatId.fromId(chatId), "❌ Вы не подписаны на группу. Пожалуйста, подпишитесь и попробуйте снова.")
+                                        bot.sendMessage(ChatId.fromId(chatId), "❌ Вы не подписаны на группу.")
                                     }
                                 },
                                 {
@@ -115,7 +115,6 @@ class MyBot {
             if (newState != null) {
                 currentState = newState
             }
-            println(newState)
             currentState.handleText(chatId, text, bot, result)
         }
     }

@@ -1,7 +1,7 @@
 plugins {
     kotlin("jvm") version "1.9.0"
     application
-    id("com.github.johnrengelman.shadow") version "8.1.0" // Добавьте этот плагин
+    id("com.github.johnrengelman.shadow") version "8.1.0"
 }
 
 group = "org.novelladouble"

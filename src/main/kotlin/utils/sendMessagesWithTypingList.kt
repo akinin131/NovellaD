@@ -22,10 +22,10 @@ suspend fun sendMessagesWithTypingList(
 
     for (text in texts) {
         if (BotStateFactory.isExecuting(text)) {
-            return // Выход из метода, если действие уже выполняется
+            return
         }
         if (BotStateFactory.executingTexts?.containsKey(text) == true) {
-            return // Ничего не делаем, если действие уже выполняется
+            return
         } else {
             BotStateFactory.setExecuting(text, true)
 
@@ -44,18 +44,6 @@ suspend fun sendMessagesWithTypingList(
             } finally {
                 BotStateFactory.setExecuting(text, false)
             }
-        }
-        if (text == Emilywenttobed) {
-            sleepRandomTime(50, 60)
-        }
-        if (text ==Strings.batteryLow2) {
-            sleepRandomTime(30, 40)
-        }
-        if (text == emilyDepartureMessage|| text == Strings.taxiRide || text == danInterruption) {
-            sleepRandomTime(60, 70)
-        }
-        if ( text == Strings.taxiRide) {
-            sleepRandomTime(10, 15)
         }
     }
 }
