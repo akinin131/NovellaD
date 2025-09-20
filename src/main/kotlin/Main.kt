@@ -43,7 +43,7 @@ class MyBot {
 
                         botScope.launch(Dispatchers.IO) {
                             val result = bot.getChatMember(chatIdGroup, userId!!.toLong())
-                            handleTextAndUpdateState(chatId, chatIdValue, text, bot, result)
+                            handleTextAndUpdateState(chatId, chatIdValue, text, userId.toString(), bot, result)
                         }
                     }
                 }
@@ -68,6 +68,7 @@ class MyBot {
                                             chatId,
                                             chatIdValue,
                                             "✅ Подписка подтверждена! Спасибо!",
+                                            userId.toString(),
                                             bot,
                                             result
                                         )
@@ -112,6 +113,7 @@ class MyBot {
         chatId: ChatId,
         chatKey: Long,
         text: String,
+        userId: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
@@ -119,7 +121,7 @@ class MyBot {
             val fallbackState = userStates[chatKey] ?: InitialStateLableOne()
             val nextState = BotStateFactory.getState(text) ?: fallbackState
             userStates[chatKey] = nextState
-            nextState.handleText(chatId, text, bot, result)
+            nextState.handleText(chatId, text, userId, bot, result)
             if (nextState is InitialStateLableOneT) {
                 userStates.remove(chatKey)
             }

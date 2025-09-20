@@ -4,5 +4,5 @@ import com.github.kotlintelegrambot.entities.ChatMember
 import com.github.kotlintelegrambot.types.TelegramBotResult
 
 interface BotState {
-    suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>)
+    suspend fun handleText(chatId: ChatId, text: String, userId: String, bot: Bot, result: TelegramBotResult<ChatMember>)
 }

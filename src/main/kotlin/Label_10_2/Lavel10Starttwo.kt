@@ -64,7 +64,13 @@ import utils.sendMessagesWithTypingList
 import utils.sendPhotoWithTyping
 
 class Lavel10Starttwo : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -99,7 +105,13 @@ class Lavel10Starttwo : BotState {
 }
 
 class Lavel10StartemilyQuestionn : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -136,7 +148,13 @@ class Lavel10StartemilyQuestionn : BotState {
 }
 
 class Lavel10StaremilyConfusion : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -164,7 +182,13 @@ class Lavel10StaremilyConfusion : BotState {
 }
 
 class Lavel10emilyUncertainty : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -199,7 +223,13 @@ class Lavel10emilyUncertainty : BotState {
 }
 
 class Lavel10emilyInvitation : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -244,7 +274,13 @@ class Lavel10emilyInvitation : BotState {
 }
 
 class Lavel10emilyClimax111 : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -297,7 +333,13 @@ class Lavel10emilyClimax111 : BotState {
 }
 
 class Lavel10writeboss : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }

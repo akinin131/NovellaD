@@ -38,7 +38,13 @@ import utils.sendMessagesWithTypingList
 import utils.sendPhotoWithTyping
 
 class InitialStateLableFive : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -97,7 +103,13 @@ class InitialStateLableFive : BotState {
 
 
 class InitialStateLableemilyLegs : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -132,7 +144,13 @@ class InitialStateLableemilyLegs : BotState {
 }
 
 class InitialStateLableemilyBossTrouble : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -169,7 +187,13 @@ class InitialStateLableemilyBossTrouble : BotState {
 }
 
 class InitialStateLableeemilyPresident : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -206,7 +230,13 @@ class InitialStateLableeemilyPresident : BotState {
 }
 
 class InitialStateLableemilyNotFair : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }

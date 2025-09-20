@@ -98,14 +98,20 @@ import java.util.*
 
 class InitialStateLableThree : BotState {
 
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
         BotStateFactory.setActive(chatId.toString(),true)
         BotStateFactory.executingTexts = null
 
-        if (!isUserSubscribed(chatId.toString())) {
+        if (!isUserSubscribed(chatId.toString()) && !isUserSubscribed(userId)) {
             handlePayCommand(chatId, bot)
             BotStateFactory.setActive(chatId.toString(),false)
             println("Подписка не оформлена")
@@ -158,7 +164,13 @@ class InitialStateLableThree : BotState {
 }
 
 class SexyResponseLableTwo_readMassege : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -197,7 +209,13 @@ class SexyResponseLableTwo_readMassege : BotState {
 }
 
 class SexyResponseLableTwo_emilyTurnedOn : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -236,7 +254,13 @@ class SexyResponseLableTwo_emilyTurnedOn : BotState {
 }
 
 class SexyResponseLableTwo_emilyTruth : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -271,7 +295,13 @@ class SexyResponseLableTwo_emilyTruth : BotState {
 }
 
 class SexyResponseLableTwo_startEmilyStory : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -317,7 +347,13 @@ class SexyResponseLableTwo_startEmilyStory : BotState {
 }
 
 class SexyResponseLableTwo_continiueStory : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -366,7 +402,13 @@ class SexyResponseLableTwo_continiueStory : BotState {
 }
 
 class SexyResponseLableTwo_continiueStory2 : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -420,7 +462,13 @@ class SexyResponseLableTwo_continiueStory2 : BotState {
 }
 
 class SexyResponseLableTwo_emilyHonesty1_or_emilyHonesty2 : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -455,7 +503,13 @@ class SexyResponseLableTwo_emilyHonesty1_or_emilyHonesty2 : BotState {
 }
 
 class SexyResponseLableTwo_emilyCuriosity : BotState {
-    override suspend fun handleText(chatId: ChatId, text: String, bot: Bot, result: TelegramBotResult<ChatMember>) {
+    override suspend fun handleText(
+        chatId: ChatId,
+        text: String,
+        userId: String,
+        bot: Bot,
+        result: TelegramBotResult<ChatMember>
+    ) {
         if (BotStateFactory.isActive(chatId.toString())) {
             return
         }
@@ -508,7 +562,7 @@ private fun handlePayCommand(chatId: ChatId, bot: Bot) {
     val prices = listOf(
         LabeledPrice(
             label = "Новелла \"Под двойной маской\"",
-            amount = BigDecimal.valueOf(14900).toBigInteger()
+            amount = BigDecimal.valueOf(34900).toBigInteger()
         )
     )
     val invoiceUserDetail = InvoiceUserDetail(
@@ -522,7 +576,7 @@ private fun handlePayCommand(chatId: ChatId, bot: Bot) {
                     {
                         "description": "Новелла \"Под двойной маской\"",
                         "quantity": "1",
-                        "amount": {"value": "149.00", "currency": "RUB"},
+                        "amount": {"value": "349.00", "currency": "RUB"},
                         "vat_code": 1
                     }
                 ]
@@ -531,7 +585,7 @@ private fun handlePayCommand(chatId: ChatId, bot: Bot) {
     """.trimIndent()
     val invoiceInfo = PaymentInvoiceInfo(
         title = "Новелла",
-        description = "Для дальнейшего прохождения необходимо приобрести новеллу\n\nДанный проект построен только на одном платеже – Проведя один платёж в 149₽ Тебе откроется остальная часть новеллы❗\uFE0F",
+        description = "Для дальнейшего прохождения необходимо приобрести новеллу\n\nДанный проект построен только на одном платеже – Проведя один платёж в 349₽ Тебе откроется остальная часть новеллы❗\uFE0F",
         payload = "order-${UUID.randomUUID()}",
         providerToken = "390540012:LIVE:54970",  // Token for payment provider
         currency = "rub",

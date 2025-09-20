@@ -121,6 +121,7 @@ class SexyResponseLableTwo_One : BotState {
     override suspend fun handleText(
         chatId: ChatId,
         text: String,
+        userId: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
@@ -174,6 +175,7 @@ class SexyResponseLableTwo_photonFollowUp1 : BotState {
     override suspend fun handleText(
         chatId: ChatId,
         text: String,
+        userId: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
@@ -206,6 +208,7 @@ class SexyResponseLableTwo_photonFollowUp2 : BotState {
     override suspend fun handleText(
         chatId: ChatId,
         text: String,
+        userId: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
@@ -237,6 +240,7 @@ class SexyResponseLableTwo_photonQuestion : BotState {
     override suspend fun handleText(
         chatId: ChatId,
         text: String,
+        userId: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
@@ -273,6 +277,7 @@ class SexyResponseLableTwo_emilyRequest1 : BotState {
     override suspend fun handleText(
         chatId: ChatId,
         text: String,
+        userId: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
@@ -309,6 +314,7 @@ class SexyResponseLableTwo_emilyRequest2 : BotState {
     override suspend fun handleText(
         chatId: ChatId,
         text: String,
+        userId: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
@@ -354,6 +360,7 @@ class SexyResponseLableTwo_emilyDefend : BotState {
     override suspend fun handleText(
         chatId: ChatId,
         text: String,
+        userId: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
@@ -385,6 +392,7 @@ class SexyResponseLableTwo_emilyPhoto : BotState {
     override suspend fun handleText(
         chatId: ChatId,
         text: String,
+        userId: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
@@ -426,6 +434,7 @@ class SexyResponseLableTwo_emilyJoke1 : BotState {
     override suspend fun handleText(
         chatId: ChatId,
         text: String,
+        userId: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
@@ -462,6 +471,7 @@ class SexyResponseLableTwo_go : BotState {
     override suspend fun handleText(
         chatId: ChatId,
         text: String,
+        userId: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
@@ -504,6 +514,7 @@ class SexyResponseLableTwo_goContiniue : BotState {
     override suspend fun handleText(
         chatId: ChatId,
         text: String,
+        userId: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
@@ -558,6 +569,7 @@ class SexyResponseLableTwo_goToBack : BotState {
     override suspend fun handleText(
         chatId: ChatId,
         text: String,
+        userId: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
@@ -594,6 +606,7 @@ class SexyResponseLableTwo_emilyGreeting : BotState {
     override suspend fun handleText(
         chatId: ChatId,
         text: String,
+        userId: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
@@ -626,6 +639,7 @@ class SexyResponseLableTwo_emilyGentleman1_or_emilyGentleman2 : BotState {
     override suspend fun handleText(
         chatId: ChatId,
         text: String,
+        userId: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
@@ -662,6 +676,7 @@ class SexyResponseLableTwo_emilyFlirty : BotState {
     override suspend fun handleText(
         chatId: ChatId,
         text: String,
+        userId: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
@@ -704,6 +719,7 @@ class SexyResponseLableTwo_emilyQuestion : BotState {
     override suspend fun handleText(
         chatId: ChatId,
         text: String,
+        userId: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
@@ -741,6 +757,7 @@ class SexyResponseLableTwo_emilyAcceptance : BotState {
     override suspend fun handleText(
         chatId: ChatId,
         text: String,
+        userId: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
@@ -779,6 +796,7 @@ class SexyResponseLableTwo_emilyExclamation : BotState {
     override suspend fun handleText(
         chatId: ChatId,
         text: String,
+        userId: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
@@ -815,6 +833,7 @@ class SexyResponseLableTwo_emilyPhoneDead : BotState {
     override suspend fun handleText(
         chatId: ChatId,
         text: String,
+        userId: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
