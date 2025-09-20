@@ -9,8 +9,11 @@ import com.github.kotlintelegrambot.Bot
 import com.github.kotlintelegrambot.entities.ChatAction
 import com.github.kotlintelegrambot.entities.ChatId
 import com.github.kotlintelegrambot.entities.KeyboardReplyMarkup
-import com.github.kotlintelegrambot.network.fold
 import com.github.kotlintelegrambot.entities.ParseMode
+import com.github.kotlintelegrambot.network.bimap
+import com.github.kotlintelegrambot.network.fold
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 suspend fun sendMessagesWithTypingList(
     chatId: ChatId,
@@ -30,17 +33,29 @@ suspend fun sendMessagesWithTypingList(
             BotStateFactory.setExecuting(text, true)
 
             try {
-                bot.sendChatAction(chatId, ChatAction.TYPING).fold({
+                val typingSent = withContext(Dispatchers.IO) {
+                    bot.sendChatAction(chatId, ChatAction.TYPING)
+                }.bimap(
+                    { true },
+                    { error ->
+                        println("Error sending typing action: $error")
+                        false
+                    }
+                )
+
+                if (typingSent) {
                     sleepRandomTime(4, 7)
-                    bot.sendMessage(
-                        chatId = chatId,
-                        text = text,
-                        parseMode = ParseMode.HTML,
-                        replyMarkup = inlineKeyboardMarkup
-                    )
-                }, {
-                    println("Error sending typing action: $it")
-                })
+                    withContext(Dispatchers.IO) {
+                        bot.sendMessage(
+                            chatId = chatId,
+                            text = text,
+                            parseMode = ParseMode.HTML,
+                            replyMarkup = inlineKeyboardMarkup
+                        ).fold({}, { error ->
+                            println("Error sending message: $error")
+                        })
+                    }
+                }
             } finally {
                 BotStateFactory.setExecuting(text, false)
             }
