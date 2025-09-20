@@ -1,6 +1,7 @@
 @file:Suppress("UNREACHABLE_CODE")
 
 import Lavel_1.InitialStateLableOne
+import Lavel_1.InitialStateLableOneT
 import Lavel_3.handleSuccessfulPayment
 import com.github.kotlintelegrambot.Bot
 import com.github.kotlintelegrambot.bot
@@ -22,7 +23,7 @@ fun main() {
 }
 
 class MyBot {
-    private var currentState: BotState = InitialStateLableOne()
+    private val userStates = ConcurrentHashMap<Long, BotState>()
     private val processedCallbackQueryIds = ConcurrentHashMap<String, Boolean>()
     private val botScope = CoroutineScope(Dispatchers.Default)
 
@@ -35,23 +36,24 @@ class MyBot {
                 text {
                     val text = update.message?.text
                     if (text != null) {
-                        val chatId = ChatId.fromId(update.message!!.chat.id)
+                        val chatIdValue = update.message!!.chat.id
+                        val chatId = ChatId.fromId(chatIdValue)
                         val userId = update.message!!.from?.id
                         val chatIdGroup = ChatId.fromId(-1002229947613L)
 
                         botScope.launch(Dispatchers.IO) {
                             val result = bot.getChatMember(chatIdGroup, userId!!.toLong())
-                            handleTextAndUpdateState(chatId, text, bot, result)
+                            handleTextAndUpdateState(chatId, chatIdValue, text, bot, result)
                         }
                     }
                 }
 
                 callbackQuery("check_subscription") {
                     val callbackId = callbackQuery.id
-                    val chatId = callbackQuery.message?.chat?.id
+                    val chatIdValue = callbackQuery.message?.chat?.id
                     val userId = callbackQuery.from.id
 
-                    if (chatId != null && processedCallbackQueryIds.putIfAbsent(callbackId, true) == null) {
+                    if (chatIdValue != null && processedCallbackQueryIds.putIfAbsent(callbackId, true) == null) {
                         val chatIdGroup = ChatId.fromId(-1002229947613L)
                         botScope.launch(Dispatchers.IO) {
                             val result = bot.getChatMember(chatIdGroup, userId.toLong())
@@ -59,20 +61,22 @@ class MyBot {
                                 {
                                     val chatMember = it
                                     if (chatMember.status in listOf("member", "administrator", "creator")) {
-                                        bot.sendMessage(ChatId.fromId(chatId), "✅ Подписка подтверждена! Спасибо!")
-                                        bot.deleteMessage(ChatId.fromId(chatId), callbackQuery.message?.messageId!!)
+                                        val chatId = ChatId.fromId(chatIdValue)
+                                        bot.sendMessage(chatId, "✅ Подписка подтверждена! Спасибо!")
+                                        bot.deleteMessage(chatId, callbackQuery.message?.messageId!!)
                                         handleTextAndUpdateState(
-                                            ChatId.fromId(chatId),
+                                            chatId,
+                                            chatIdValue,
                                             "✅ Подписка подтверждена! Спасибо!",
                                             bot,
                                             result
                                         )
                                     } else {
-                                        bot.sendMessage(ChatId.fromId(chatId), "❌ Вы не подписаны на группу.")
+                                        bot.sendMessage(ChatId.fromId(chatIdValue), "❌ Вы не подписаны на группу.")
                                     }
                                 },
                                 {
-                                    bot.sendMessage(ChatId.fromId(chatId), "Произошла ошибка при проверке подписки.")
+                                    bot.sendMessage(ChatId.fromId(chatIdValue), "Произошла ошибка при проверке подписки.")
                                 }
                             )
                         }
@@ -106,16 +110,19 @@ class MyBot {
 
     private suspend fun handleTextAndUpdateState(
         chatId: ChatId,
+        chatKey: Long,
         text: String,
         bot: Bot,
         result: TelegramBotResult<ChatMember>
     ) {
         supervisorScope {
-            val newState = BotStateFactory.getState(text)
-            if (newState != null) {
-                currentState = newState
+            val fallbackState = userStates[chatKey] ?: InitialStateLableOne()
+            val nextState = BotStateFactory.getState(text) ?: fallbackState
+            userStates[chatKey] = nextState
+            nextState.handleText(chatId, text, bot, result)
+            if (nextState is InitialStateLableOneT) {
+                userStates.remove(chatKey)
             }
-            currentState.handleText(chatId, text, bot, result)
         }
     }
 }
